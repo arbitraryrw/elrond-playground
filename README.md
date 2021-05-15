@@ -1,0 +1,2 @@
+# Elrond Playground
+The purpose of this project is to play around with interacting with the [elrond](https://elrond.com/) blockchain network. There is an [elrond-sdk](https://github.com/ElrondNetwork/elrond-sdk) for facilitating this functionality.
