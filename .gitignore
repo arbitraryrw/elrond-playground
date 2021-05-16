@@ -127,3 +127,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+elrondplayground/config/elrond_playground_config.json
