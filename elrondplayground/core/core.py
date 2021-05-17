@@ -8,10 +8,6 @@ from erdpy.proxy.core import ElrondProxy
 from erdpy.accounts import Address
 
 class Core:
-    _binance_wrapper = None
-    _asset_wrapper = None
-    _analyse_signal = None
-    TRADED_TOKENS = None
 
     def __init__(self):
         logging.getLogger().setLevel(logging.INFO)
@@ -23,10 +19,18 @@ class Core:
         logging.info ("Starting!")
 
         proxy = ElrondProxy(Config.PROXY)
-
-        account = proxy.get_account(Address(Config.ADDRESS))
-        print(f"Account data {account}")
-
-
         
+        METACHAIN_ID = 4294967295
+
+        shards = [METACHAIN_ID]
+
+        num_shards = proxy.get_num_shards()
+        # shards.extend([shard for shard in range(0, num_shards, 1)])
+
+        for shard in shards:
+            block_nonce = proxy.get_last_block_nonce(shard)
+            hyperblock =  proxy.get_hyperblock(block_nonce)
+            # hyperblock =  proxy.get_hyperblock(4150000)  # test block
+            print(Util.pretty_format_json(hyperblock))
+
 
