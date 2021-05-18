@@ -31,6 +31,13 @@ class Core:
             block_nonce = proxy.get_last_block_nonce(shard)
             hyperblock =  proxy.get_hyperblock(block_nonce)
             # hyperblock =  proxy.get_hyperblock(4150000)  # test block
-            print(Util.pretty_format_json(hyperblock))
+            # print(Util.pretty_format_json(hyperblock))
+            print(f"Contains a total of {hyperblock.get('numTxs')} transactions")
 
+            for tx in hyperblock.get('transactions', list()):
+                if not tx.get('data'):
+                    continue
 
+                data_attribute = Util.base64_decode(tx.get('data'))
+
+                print(data_attribute)
