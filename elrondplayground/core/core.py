@@ -53,3 +53,16 @@ class Core:
                     continue  # Ignore relayed transactions
                 else:
                     print(f"Unknown tx type {data_attribute}")
+
+                receiver_account = proxy.get_account(Address(tx.get('receiver')))
+                receiver_balance = int(receiver_account.get('balance')) / int(math.pow(10, 18)), "EGLD"
+
+                sender_account = proxy.get_account(Address(tx.get('sender')))
+                sender_balance = int(sender_account.get('balance')) / int(math.pow(10, 18)), "EGLD"
+
+                tx_value = int(tx.get('value')) / int(math.pow(10, 18)), "EGLD"
+
+                print(f"\tAddress {receiver_account.get('address')} to {sender_account.get('address')} "
+                    f"transaction of {tx_value}")
+                print(f"\t\tReceiver account balance -> {receiver_balance}")
+                print(f"\t\tSender account balance -> {sender_balance}")
