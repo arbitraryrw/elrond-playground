@@ -40,4 +40,16 @@ class Core:
 
                 data_attribute = Util.base64_decode(tx.get('data'))
 
-                print(data_attribute)
+                if "delegate" == data_attribute:
+                    print("[INFO] Raw delegate")
+                elif "reDelegateRewards" == data_attribute:
+                    print("[INFO] Re-invested staked gains")
+                elif "claimRewards" == data_attribute:
+                    print("[INFO] Took out staked gains")
+                elif "withdraw" == data_attribute:
+                    print("Withdaw! printing additional debug info")
+                    print(tx)
+                elif "@6f6b" == data_attribute or "relayedTx@" in data_attribute:
+                    continue  # Ignore relayed transactions
+                else:
+                    print(f"Unknown tx type {data_attribute}")
