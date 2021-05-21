@@ -13,3 +13,9 @@ class ElrondWrapper:
 
     def get_account_data(self, address: str) -> dict():
         return self.CLIENT.get_account(Address(address))
+
+    def get_account_transactions(self, address) -> dict():
+        return self.CLIENT.get_account_transactions(Address(address))
+
+    def get_num_shards(self) -> int:
+        return self.CLIENT.get_num_shards()       
