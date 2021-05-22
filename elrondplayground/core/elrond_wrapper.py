@@ -28,3 +28,13 @@ class ElrondWrapper:
 
     def get_hyperblock(self, block_nonce: int) -> dict():
        return self.CLIENT.get_hyperblock(block_nonce)
+
+    def decode_internal_int_value(self, int_value: int) -> int:
+        try:
+            return int(int_value) / int(math.pow(10, 18)), "EGLD"
+        except ValueError as e:
+            print(f"[ERROR] Could not decode {int_value} got error {e}")
+            return int_value
+        except Exception as e:
+            print(f"[ERROR] Unknown error occured {e}")
+            return int_value
