@@ -1,6 +1,4 @@
 import logging
-import math
-import base64
 from elrondplayground.config.config import Config
 from elrondplayground.core.elrond_wrapper import ElrondWrapper
 
@@ -23,8 +21,6 @@ class Core:
     def start(self):
         logging.info ("Starting!")
 
-        proxy = ElrondProxy(Config.PROXY)
-
         account = self._ELROND_WRAPPER.get_account_data(Config.ADDRESS)
         print(f"Account data {account}")
         
@@ -33,13 +29,14 @@ class Core:
 
         account_tx = self._ELROND_WRAPPER.get_account_transactions(Config.ADDRESS)
         print(f"Account has {len(account_tx)} transactions")
+        
 
+    def monitor_transactions(self):
         METACHAIN_ID = 4294967295
 
         shards = [METACHAIN_ID]
-
-        num_shards = proxy.get_num_shards()
-        # shards.extend([shard for shard in range(0, num_shards, 1)])
+        # proxy = ElrondProxy(Config.PROXY)
+        # shards.extend([shard for shard in range(0, proxy.get_num_shards(), 1)])
 
         for shard in shards:
             block_nonce = proxy.get_last_block_nonce(shard)
