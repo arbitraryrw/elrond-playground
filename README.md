@@ -14,6 +14,16 @@ balance = int(egld_response.('key')) / int(math.pow(10, 18))
 
 Learnt this the hard way but I found a comment [here](https://coinmarketbag.com/learn-to-code-for-elrond-part-1/) from one of the core devs mentioning it.
 
+### Metachain Reference
+`4294967295` can be used as the shard ID when querying the Metachain using shard APIs. Some APIs require a shard ID as a parameter. See [here](https://docs.elrond.com/sdk-and-tools/rest-api/network/#get-shard-status) for reference.
+
+### Hyperblock
+As taken from the docs [here](https://docs.elrond.com/sdk-and-tools/rest-api/blocks/):
+
+```
+A Hyperblock is a block-like abstraction that reunites the data from all shards, and contains only fully-executed transactions (that is, transactions executed both in source and in destination shard).
+```
+
 ## Setup
 Follow the instructions to setup erdpy [here](https://docs.elrond.com/sdk-and-tools/erdpy/erdpy/). If you're using the mainnet make sure the proxy appropriately:
 
