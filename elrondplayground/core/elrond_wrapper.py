@@ -18,4 +18,13 @@ class ElrondWrapper:
         return self.CLIENT.get_account_transactions(Address(address))
 
     def get_num_shards(self) -> int:
-        return self.CLIENT.get_num_shards()       
+        return self.CLIENT.get_num_shards()
+    
+    def get_last_block_nonce(self, shard_id: int = 4294967295) -> int:
+        """
+        Default to the metachain id 
+        """
+        return self.CLIENT.get_last_block_nonce(shard_id)
+
+    def get_hyperblock(self, block_nonce: int) -> dict():
+       return self.CLIENT.get_hyperblock(block_nonce)
