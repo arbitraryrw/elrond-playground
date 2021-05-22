@@ -2,12 +2,15 @@ import logging
 import math
 import base64
 from elrondplayground.config.config import Config
+from elrondplayground.core.elrond_wrapper import ElrondWrapper
+
 from elrondplayground.util.util import Util
 
 from erdpy.proxy.core import ElrondProxy
 from erdpy.accounts import Address
 
 class Core:
+    _ELROND_WRAPPER = None
 
     def __init__(self):
         logging.getLogger().setLevel(logging.INFO)
@@ -15,11 +18,13 @@ class Core:
         # Initialise an instance of the Config class to run initialisation functions
         Config()
 
+        self._ELROND_WRAPPER = ElrondWrapper()
+
     def start(self):
         logging.info ("Starting!")
 
         proxy = ElrondProxy(Config.PROXY)
-        
+
         METACHAIN_ID = 4294967295
 
         shards = [METACHAIN_ID]
@@ -49,18 +54,19 @@ class Core:
                 elif "withdraw" == data_attribute:
                     print("Withdaw! printing additional debug info")
                     print(tx)
+
                 elif "@6f6b" == data_attribute or "relayedTx@" in data_attribute:
                     continue  # Ignore relayed transactions
                 else:
                     print(f"Unknown tx type {data_attribute}")
 
-                receiver_account = proxy.get_account(Address(tx.get('receiver')))
-                receiver_balance = int(receiver_account.get('balance')) / int(math.pow(10, 18)), "EGLD"
+                receiver_account = self._ELROND_WRAPPER.get_account_data(tx.get('receiver'))
+                receiver_balance = self._ELROND_WRAPPER.decode_internal_int_value(receiver_account.get('balance'))
 
-                sender_account = proxy.get_account(Address(tx.get('sender')))
-                sender_balance = int(sender_account.get('balance')) / int(math.pow(10, 18)), "EGLD"
+                sender_account = self._ELROND_WRAPPER.get_account_data(tx.get('sender'))
+                sender_balance = self._ELROND_WRAPPER.decode_internal_int_value(sender_account.get('balance'))
 
-                tx_value = int(tx.get('value')) / int(math.pow(10, 18)), "EGLD"
+                tx_value = self._ELROND_WRAPPER.decode_internal_int_value(tx.get('value'))
 
                 print(f"\tAddress {receiver_account.get('address')} to {sender_account.get('address')} "
                     f"transaction of {tx_value}")
