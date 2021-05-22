@@ -25,6 +25,15 @@ class Core:
 
         proxy = ElrondProxy(Config.PROXY)
 
+        account = self._ELROND_WRAPPER.get_account_data(Config.ADDRESS)
+        print(f"Account data {account}")
+        
+        balance = self._ELROND_WRAPPER.decode_internal_int_value(account.get('balance'))
+        print(balance)
+
+        account_tx = self._ELROND_WRAPPER.get_account_transactions(Config.ADDRESS)
+        print(f"Account has {len(account_tx)} transactions")
+
         METACHAIN_ID = 4294967295
 
         shards = [METACHAIN_ID]
