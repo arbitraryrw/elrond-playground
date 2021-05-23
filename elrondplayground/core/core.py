@@ -1,11 +1,8 @@
 import logging
 from elrondplayground.config.config import Config
 from elrondplayground.core.elrond_wrapper import ElrondWrapper
-
 from elrondplayground.util.util import Util
 
-from erdpy.proxy.core import ElrondProxy
-from erdpy.accounts import Address
 
 class Core:
     _ELROND_WRAPPER = None
@@ -19,23 +16,23 @@ class Core:
         self._ELROND_WRAPPER = ElrondWrapper()
 
     def start(self):
-        logging.info ("Starting!")
+        self.query_account_data(Config.ADDRESS)
+        self.monitor_transactions()
 
-        account = self._ELROND_WRAPPER.get_account_data(Config.ADDRESS)
+    def query_account_data(self, address: str) -> None:
+        account = self._ELROND_WRAPPER.get_account_data(address)
         print(f"Account data {account}")
         
         balance = self._ELROND_WRAPPER.decode_internal_int_value(account.get('balance'))
         print(balance)
 
-        account_tx = self._ELROND_WRAPPER.get_account_transactions(Config.ADDRESS)
+        account_tx = self._ELROND_WRAPPER.get_account_transactions(address)
         print(f"Account has {len(account_tx)} transactions")
-        
 
-    def monitor_transactions(self):
+    def monitor_transactions(self) -> None:
+        proxy = ElrondProxy(Config.PROXY)
         METACHAIN_ID = 4294967295
-
         shards = [METACHAIN_ID]
-        # proxy = ElrondProxy(Config.PROXY)
         # shards.extend([shard for shard in range(0, proxy.get_num_shards(), 1)])
 
         for shard in shards:
