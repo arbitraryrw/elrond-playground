@@ -41,14 +41,13 @@ class Core:
         print(f"Account has {len(account_tx)} transactions")
 
     def monitor_transactions(self) -> None:
-        proxy = ElrondProxy(Config.PROXY)
         METACHAIN_ID = 4294967295
         shards = [METACHAIN_ID]
         # shards.extend([shard for shard in range(0, proxy.get_num_shards(), 1)])
 
         for shard in shards:
-            block_nonce = proxy.get_last_block_nonce(shard)
-            hyperblock =  proxy.get_hyperblock(block_nonce)
+            block_nonce = self._ELROND_WRAPPER.get_last_block_nonce(shard)
+            hyperblock =  self._ELROND_WRAPPER.get_hyperblock(block_nonce)
             # hyperblock =  proxy.get_hyperblock(4150000)  # test block
             # print(Util.pretty_format_json(hyperblock))
             print(f"Contains a total of {hyperblock.get('numTxs')} transactions")
