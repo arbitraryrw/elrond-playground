@@ -16,7 +16,16 @@ def handle_cli_arguments():
         help='The address to handle'
     )
 
+    parser.add_argument(
+        '-m', 
+        '--monitor', 
+        help='monitor transactions', 
+        action = 'store_true'
+    )
+
     args = parser.parse_args()
+
+    Config.MONITOR_MODE = args.monitor
 
     if args.address is not None:
         Config.ADDRESS = args.address
