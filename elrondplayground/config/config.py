@@ -6,12 +6,11 @@ class Config:
     ROOT_DIR=None
     CONFIG_FILE = None
 
-    OUTPUT_LOG_FILE = None
-
-    ADDRESS=""
+    ADDRESS=None
 
     VERSION = "0.1"
     BANNER = f"""
+
 elrond-playground v{VERSION}
     """
 
@@ -19,7 +18,8 @@ elrond-playground v{VERSION}
 
 
     def __init__(self):
-        self.read_json_config()
+        if Config.ADDRESS is None:
+            self.read_json_config()
 
     def __del__(self):
         pass
