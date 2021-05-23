@@ -1,4 +1,7 @@
 import logging
+from datetime import datetime
+import time
+import random
 from elrondplayground.config.config import Config
 from elrondplayground.core.elrond_wrapper import ElrondWrapper
 from elrondplayground.util.util import Util
@@ -17,7 +20,15 @@ class Core:
 
     def start(self):
         self.query_account_data(Config.ADDRESS)
-        self.monitor_transactions()
+
+        start = datetime.now()
+
+        for i in range(0,11,1):
+            self.monitor_transactions()
+            random_sleep_time = round(random.uniform(5,10), 1)
+            time.sleep(random_sleep_time)
+
+        print(f"Ran for {datetime.now()-start}")
 
     def query_account_data(self, address: str) -> None:
         account = self._ELROND_WRAPPER.get_account_data(address)
