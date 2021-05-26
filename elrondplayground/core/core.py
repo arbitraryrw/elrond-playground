@@ -21,14 +21,16 @@ class Core:
     def start(self):
         self.query_account_data(Config.ADDRESS)
 
-        start = datetime.now()
+        if Config.MONITOR_MODE:
 
-        for i in range(0,11,1):
-            self.monitor_transactions()
-            random_sleep_time = round(random.uniform(5,10), 1)
-            time.sleep(random_sleep_time)
+            start = datetime.now()
 
-        print(f"Ran for {datetime.now()-start}")
+            for i in range(0,11,1):
+                self.monitor_transactions()
+                random_sleep_time = round(random.uniform(5,10), 1)
+                time.sleep(random_sleep_time)
+
+            print(f"Ran for {datetime.now()-start}")
 
     def query_account_data(self, address: str) -> None:
         account = self._ELROND_WRAPPER.get_account_data(address)
