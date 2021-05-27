@@ -23,8 +23,16 @@ def handle_cli_arguments():
         action = 'store_true'
     )
 
+    parser.add_argument(
+        '-v', 
+        '--verbose', 
+        help='modify output verbosity', 
+        action = 'store_true'
+    )
+
     args = parser.parse_args()
 
+    Config.VERBOSE_MODE = args.verbose
     Config.MONITOR_MODE = args.monitor
 
     if args.address is not None:
