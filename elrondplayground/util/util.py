@@ -1,7 +1,8 @@
 import json
 import os
+import base64
 
-class Util():
+class Util:
 
     def __init__(self):
         pass
@@ -23,3 +24,11 @@ class Util():
     @staticmethod
     def pretty_format_json(json_string: str) -> str:
         return json.dumps(json_string, indent=4, sort_keys=True)
+
+    @staticmethod
+    def base64_decode(encoded_str: str) -> str:
+        try:
+            return base64.b64decode(encoded_str).decode('ascii')
+        except UnicodeDecodeError as e:
+            print(f"[ERROR] Could not decode bytes {e}")
+            return encoded_str
