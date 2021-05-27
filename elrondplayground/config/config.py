@@ -7,6 +7,8 @@ class Config:
     CONFIG_FILE = None
 
     ADDRESS=None
+    VERBOSE_MODE=None
+    MONITOR_MODE=None
 
     VERSION = "0.1"
     BANNER = f"""
