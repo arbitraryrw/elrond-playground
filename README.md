@@ -24,6 +24,9 @@ As taken from the docs [here](https://docs.elrond.com/sdk-and-tools/rest-api/blo
 A Hyperblock is a block-like abstraction that reunites the data from all shards, and contains only fully-executed transactions (that is, transactions executed both in source and in destination shard).
 ```
 
+### Erdpy Examples
+The docs provide a high level overview of[erdpy](https://docs.elrond.com/sdk-and-tools/erdpy/erdpy/) but lack practical code examples. The elrond-sdk exposes CLI interfaces that demonstrate how you can hook into the library, for example [cli_block.py](https://github.com/ElrondNetwork/elrond-sdk/blob/master/erdpy/cli_block.py).
+
 ## Setup
 Follow the instructions to setup erdpy [here](https://docs.elrond.com/sdk-and-tools/erdpy/erdpy/). If you're using the mainnet make sure the proxy appropriately:
 
